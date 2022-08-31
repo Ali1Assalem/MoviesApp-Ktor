@@ -19,9 +19,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.moviesapp_ktor.R
 import com.example.moviesapp_ktor.domain.model.OnBoardingPage
+import com.example.moviesapp_ktor.navigation.Screen
 import com.example.moviesapp_ktor.ui.theme.*
 import com.example.moviesapp_ktor.util.Constants
 import com.google.accompanist.pager.*
@@ -29,7 +31,9 @@ import com.google.accompanist.pager.*
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
 @Composable
-fun WelcomeScreen (navController: NavHostController) {
+fun WelcomeScreen (navController: NavHostController,
+welcomeViewModel: WelcomeViewModel = hiltViewModel()
+) {
     val pages = listOf(
         OnBoardingPage.First,
         OnBoardingPage.Second,
@@ -62,7 +66,12 @@ fun WelcomeScreen (navController: NavHostController) {
             indicatorWidth = PAGING_INDICATOR_WIDTH,
             spacing = PAGING_INDICATOR_SPACING
         )
-        FinishButton(modifier = Modifier.weight(1f), pagerState = pagerState ){}
+        FinishButton(modifier = Modifier.weight(1f),
+            pagerState = pagerState ){
+            navController.popBackStack()
+            navController.navigate(Screen.Home.route)
+            welcomeViewModel.saveOnBoardingState(true)
+        }
     }
 }
 
@@ -75,16 +84,14 @@ fun PagerScreen(onBoardingPage: OnBoardingPage){
     ) {
         Image(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = SMALL_PADDING),
+                .fillMaxWidth(0.5f) //50% of Column Width
+                .fillMaxHeight(0.7f), //70% of Column hight
             painter = painterResource(id = onBoardingPage.image) ,
             contentDescription = stringResource(R.string.on_boarding_image)
         )
         Text(
             modifier = Modifier
-                .fillMaxWidth(0.5f) //50% of Column Width
-                .fillMaxHeight(0.7f) //70% of Column hight
-                .padding(top = SMALL_PADDING),
+                .fillMaxWidth(),
             text = onBoardingPage.title,
             color =MaterialTheme.colors.titleColor,
             fontSize = MaterialTheme.typography.h4.fontSize,
@@ -121,7 +128,7 @@ fun FinishButton(
     ) {
         AnimatedVisibility(
             modifier = Modifier.fillMaxWidth(),
-            visible = pagerState.currentPage == 2 ) {
+            visible = pagerState.currentPage == Constants.LAST_ON_BOARDING_PAGE ) {
             Button(onClick = onClick,
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = MaterialTheme.colors.buttonBackgroundColor,
