@@ -28,11 +28,19 @@ object RepositoryModule {
 
     @Provides
     @Singleton
+    fun provideReository(dataStoreOperations: DataStoreOperations) : Repository {
+        return Repository(dataStoreOperations)
+    }
+
+    @Provides
+    @Singleton
     fun provideUseCases(repository: Repository):UseCases {
         return UseCases(
             SaveOnBoardingUseCase(repository),
             ReadOnBoardingUseCase(repository)
         )
     }
+
+
 
 }

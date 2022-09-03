@@ -12,8 +12,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashViewModel @Inject constructor
-    (private val useCases: UseCases) : ViewModel()
+class SplashViewModel @Inject constructor(
+    private val useCases: UseCases) : ViewModel()
 {
     private val _onBoardingCompleted = MutableStateFlow(false)
     val onBoardingCompleted : StateFlow<Boolean> = _onBoardingCompleted
