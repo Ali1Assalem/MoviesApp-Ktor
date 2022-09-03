@@ -2,6 +2,8 @@ package com.example.moviesapp_ktor.util
 
 object Constants {
 
+    const val BASE_URL = "http://192.168.1.108:8081"
+
     const val DETAILS_ARGUMENT_KEY = "heroId"
 
     const val BORUTO_DATABASE = "Ali_Movies_db"
