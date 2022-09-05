@@ -7,12 +7,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.moviesapp_ktor"
         minSdk 24
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -72,6 +72,7 @@ dependencies {
     implementation "androidx.room:room-runtime:2.4.3"
     kapt "androidx.room:room-compiler:2.4.3"
     implementation "androidx.room:room-ktx:2.4.3"
+    implementation "androidx.room:room-paging:2.4.3"
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -79,8 +80,8 @@ dependencies {
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
 
     // Paging 3.0
-    //implementation 'androidx.paging:paging-compose:1.0.0-alpha16'
-
+    //implementation 'androidx.room:room-paging:2.5.0-alpha03'
+    implementation 'androidx.paging:paging-compose:1.0.0-alpha16'
     // KotlinX Serialization
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2"
 

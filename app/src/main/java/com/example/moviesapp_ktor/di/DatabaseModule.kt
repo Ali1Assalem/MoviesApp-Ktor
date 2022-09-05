@@ -2,6 +2,7 @@ package com.example.moviesapp_ktor.di
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.example.moviesapp_ktor.data.local.BorutoDatabase
 import com.example.moviesapp_ktor.util.Constants
 import dagger.Module
@@ -19,10 +20,12 @@ object DatabaseModule {
     @Singleton
     fun provideDatabase(
         @ApplicationContext context: Context
-    ) = Room.databaseBuilder(
-        context,
-        BorutoDatabase::class.java,
-        Constants.BORUTO_DATABASE
-    ).build()
+    ) : BorutoDatabase {
+        return  Room.databaseBuilder(
+            context,
+            BorutoDatabase::class.java,
+            Constants.BORUTO_DATABASE
+        ).build()
+    }
 
 }

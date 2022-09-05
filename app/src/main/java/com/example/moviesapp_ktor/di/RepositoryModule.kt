@@ -5,6 +5,7 @@ import com.example.moviesapp_ktor.data.Repository.DataStoreOperationsImpl
 import com.example.moviesapp_ktor.data.Repository.Repository
 import com.example.moviesapp_ktor.domain.repository.DataStoreOperations
 import com.example.moviesapp_ktor.domain.use_cases.UseCases
+import com.example.moviesapp_ktor.domain.use_cases.get_all_heroes.GetAllHeroesUseCase
 import com.example.moviesapp_ktor.domain.use_cases.read_onboarding.ReadOnBoardingUseCase
 import com.example.moviesapp_ktor.domain.use_cases.save_onboarding.SaveOnBoardingUseCase
 import dagger.Module
@@ -28,16 +29,11 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideReository(dataStoreOperations: DataStoreOperations) : Repository {
-        return Repository(dataStoreOperations)
-    }
-
-    @Provides
-    @Singleton
     fun provideUseCases(repository: Repository):UseCases {
         return UseCases(
             SaveOnBoardingUseCase(repository),
-            ReadOnBoardingUseCase(repository)
+            ReadOnBoardingUseCase(repository),
+            GetAllHeroesUseCase(repository)
         )
     }
 
